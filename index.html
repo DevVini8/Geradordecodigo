@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="img/pngwing.com (1).png" type="image/x-icon">
+    <link href="css/index.css" type="text/css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tela de Login</title>
+    <style>
+     body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f5ff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-image: url(img/logo.png);
+    background-repeat: no-repeat;
+    background-position: center calc(30% - 120px);
+    background-size: auto; /* Ajuste o valor de background-size conforme necessário */
+    color: #007bff;
+}
+
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <h2>Login</h2>
+        <form onsubmit="return loginUser()">
+            <input type="text" id="username" placeholder="Usuário" required>
+            <input type="password" id="password" placeholder="Senha" required>
+            <button type="submit">Entrar</button>
+        </form>
+    </div>
+
+    <script>
+        function loginUser() {
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+
+            // Simples verificação de login (substitua por autenticação real)
+            if (username === "usuario" && password === "senha") {
+                alert("Login bem-sucedido!");
+
+                // Redirecionar para a tela de geração de código por CPF
+                window.location.href = "gerarcodigo.html";
+
+                return false; // Evita o envio do formulário
+            } else {
+                alert("Usuário ou senha incorretos. Tente novamente.");
+                return false; // Evita o envio do formulário
+            }
+        }
+    </script>
+
+</body>
+</html>
