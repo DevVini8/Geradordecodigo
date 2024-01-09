@@ -10,8 +10,7 @@ body {
     background-image: url(/img/logo.png);
     background-repeat: no-repeat;
     background-position: center calc(30% - 120px);
-    background-size: auto; /* Ajuste o valor de background-size conforme necessário */
-    color: #007bff;
+    background-size: auto; 
 }
 .login-container {
     background-color: #fff;
@@ -20,6 +19,7 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 300px;
     text-align: center;
+    flex-direction: column;
 }
 
 input {

@@ -21,8 +21,7 @@
     background-image: url(img/logo.png);
     background-repeat: no-repeat;
     background-position: center calc(30% - 90px);
-    background-size: auto; /* Ajuste o valor de background-size conforme necessário */
-    color: #007bff;
+    background-size: auto; 
 }
 
     </style>
@@ -36,14 +35,19 @@
         <button onclick="gerarCodigo()">Gerar Código</button>
         <div id="resultado"></div>
         <button onclick="imprimirCodigos()">Imprimir Códigos</button>
-
-        <!-- Adicione a interface de seleção de CPF para exclusão -->
-        <div>
+    
+ <div>
 
         </div>
 
         <div class="excluir">
             <button onclick="excluirTodos()">Excluir Tudo</button>
+        </div>
+        <br>
+        <div id="search-cpf" class="search-container">
+            <label for="searchCpf">Pesquisar CPF:</label>
+            <input type="text" id="searchCpf" placeholder="123.456.789-00" maxlength="14" oninput="formatarCPF(this)">
+            <button onclick="pesquisarCPF()">Pesquisar</button>
         </div>
 
         <div id="codigosAnteriores"></div>
@@ -53,13 +57,13 @@
     <script>
           var isLoggedIn = localStorage.getItem("isLoggedIn");
 
-// Verificar se o usuário está autenticado
+
 if (!isLoggedIn || isLoggedIn !== "true") {
-    // Se não estiver autenticado, redirecionar de volta para a página de login
+   
     window.location.href = "index.html";
 }
         function formatarCPF(input) {
-            // Formatar o CPF para o formato ###.###.###-##
+          
             var valor = input.value.replace(/\D/g, '');
             if (valor.length > 9) {
                 input.value = valor.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})$/, '$1.$2.$3-$4');
@@ -69,6 +73,38 @@ if (!isLoggedIn || isLoggedIn !== "true") {
                 input.value = valor.replace(/^(\d{3})(\d{3})$/, '$1.$2');
             } else {
                 input.value = valor;
+            }
+        }
+        function pesquisarCPF() {
+            var cpfPesquisa = document.getElementById("searchCpf").value.replace(/\D/g, '');
+
+            if (cpfPesquisa.length !== 11) {
+                alert("Informe um CPF válido para pesquisa.");
+                return;
+            }
+
+            // Remover destaque de CPFs anteriores
+            var elementosDestacados = document.querySelectorAll('.highlighted');
+            elementosDestacados.forEach(function (elemento) {
+                elemento.classList.remove('highlighted');
+            });
+
+            // Verificar se o CPF existe na lista
+            var codigosAnteriores = JSON.parse(localStorage.getItem('codigosAnteriores')) || [];
+            var cpfEncontrado = codigosAnteriores.find(function (item) {
+                return item.cpf === cpfPesquisa;
+            });
+
+            if (cpfEncontrado) {
+                alert("CPF encontrado! Código correspondente: " + cpfEncontrado.codigo);
+
+                
+                var elementoDestacar = document.querySelector('[data-cpf="' + cpfEncontrado.cpf + '"]');
+                if (elementoDestacar) {
+                    elementoDestacar.classList.add('highlighted');
+                }
+            } else {
+                alert("CPF não encontrado na lista.");
             }
         }
 
@@ -81,7 +117,7 @@ if (!isLoggedIn || isLoggedIn !== "true") {
                 return;
             }
 
-            // Verificar se o CPF já existe na lista
+          
             var codigosAnteriores = JSON.parse(localStorage.getItem('codigosAnteriores')) || [];
             var cpfExistente = codigosAnteriores.find(function (item) {
                 return item.cpf === cpf;    
@@ -92,13 +128,13 @@ if (!isLoggedIn || isLoggedIn !== "true") {
                 return;
             }
 
-            // Lógica de geração do código de 4 dígitos
+          
             var codigo = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
 
-            // Exibir o resultado na página
+           
             document.getElementById("resultado").innerHTML = "<p>Código gerado para o CPF " + cpf + ": <strong>" + codigo + "</strong></p>";
 
-            // Gravar CPF e código no armazenamento local
+          
             salvarCodigoAnterior(cpf, codigo);
         }
 
@@ -107,9 +143,9 @@ if (!isLoggedIn || isLoggedIn !== "true") {
             codigosAnteriores.push({ cpf: cpf, codigo: codigo });
             localStorage.setItem('codigosAnteriores', JSON.stringify(codigosAnteriores));
 
-            // Atualizar a exibição dos códigos anteriores
+         
             exibirCodigosAnteriores();
-            // Atualizar a lista de CPFs para exclusão
+            
             atualizarListaCpfs();
         }
 
@@ -167,9 +203,9 @@ if (!isLoggedIn || isLoggedIn !== "true") {
             janelaImprimir.print();
         }
 
-        // Exibir códigos anteriores ao carregar a página
+     
         exibirCodigosAnteriores();
-        // Inicializar a lista de CPFs para exclusão
+       
         atualizarListaCpfs();
     </script>
 
