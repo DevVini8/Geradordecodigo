@@ -42,8 +42,10 @@
             var password = document.getElementById("password").value;
 
             // Simples verificação de login (substitua por autenticação real)
-            if (username === "usuario" && password === "senha") {
+            if (username === "rhredenovomix" && password === "261123") {
                 alert("Login bem-sucedido!");
+
+                localStorage.setItem("isLoggedIn", "true");
 
                 // Redirecionar para a tela de geração de código por CPF
                 window.location.href = "gerarcodigo.html";

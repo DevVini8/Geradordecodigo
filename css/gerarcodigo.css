@@ -10,10 +10,14 @@ body {
     background-image: url(/img/logo.png);
     background-repeat: no-repeat;
     background-position: center calc(30% - 90px);
-    background-size: auto; /* Ajuste o valor de background-size conforme necessário */
+    background-size: auto; 
     color: #007bff;
 }
-
+.container-pai {
+    height: 600px; /* ou ajuste conforme necessário */
+    overflow: auto; 
+    overflow-x: hidden; /* Adicione um scroll vertical conforme necessário */
+}
 .codigo-container {
     background-color: #fff;
     padding: 20px;
@@ -21,8 +25,11 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 350px;
     text-align: center;
-    position: relative;
-   top: 80px;
+    height: auto;
+    max-height: 500vh; 
+    margin-top: 200px;
+   
+    
 }
 
 button {
